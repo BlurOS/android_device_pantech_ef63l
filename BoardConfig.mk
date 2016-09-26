@@ -203,4 +203,4 @@ TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TARGET_RECOVERY_QCOM_RTC_FIX 	:= true
 TW_TIME_ZONE_GUISEL		:= "THAIST-7;THAIDT"
 
--include vendor/pantech/ef63l/BoardConfigVendor.mk
+-include vendor/pantech/ef63s/BoardConfigVendor.mk
