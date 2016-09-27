@@ -2,11 +2,11 @@
  "id": null,
  "result": [
     {
-    "url": "",
-    "timestamp": "",
+    "url": "http://bluros.vn/get/info.php?f=BlurOS_updater_ota.zip",
+    "timestamp": "1485012548",
     "api_level": "24",
-    "md5sum": "",
-    "filename": "",
+    "md5sum": "a65a5eda907e2af8d20814fb989565b5",
+    "filename": "BlurOS_updater_ota.zip",
     "channel": "NIGHTLY",
     "changes": "",
     "incremental": ""
