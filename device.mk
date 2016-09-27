@@ -104,6 +104,9 @@ PRODUCT_PACKAGES += \
     libshim_camera \
     Snap
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.stagefright.codecremote=false
+
 # Data
 PRODUCT_PACKAGES += \
     librmnetctl \
