@@ -2,11 +2,11 @@
  "id": null,
  "result": [
     {
-    "url": "http://bluros.vn/get/info.php?f=BlurOS_updater_ota.zip",
-    "timestamp": "1485012548",
-    "api_level": "24",
-    "md5sum": "a65a5eda907e2af8d20814fb989565b5",
-    "filename": "BlurOS_updater_ota.zip",
+    "url": "https://doc-0k-9c-docs.googleusercontent.com/docs/securesc/ha0ro937gcuc7l7deffksulhg5h7mbp1/cdm5gegin8nscjv3hsgbggcij5i4cjir/1475251200000/02698589062905747578/*/0B9MuyNCZuhbkZkxuajBKLS1WeFE?e=download",
+    "timestamp": "1475255578",
+    "api_level": "23",
+    "md5sum": "73c78e228fe86bd01723234fbd23e326",
+    "filename": "cm-14.0-20160930-UNOFFICIAL-XDAVN-ef63l.zip",
     "channel": "NIGHTLY",
     "changes": "",
     "incremental": ""
