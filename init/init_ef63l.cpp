@@ -46,7 +46,7 @@ void vendor_load_properties()
     if (platform != ANDROID_TARGET)
         return;
 
-    fp = fopen("/dev/block/platform/msm_sdcc.1/by-name/rawdata", "r");
+    fp = fopen("/dev/block/platform/msm_sdcc.1/by-name/phoneinfo", "r");
     if ( fp == NULL )
     {
         INFO("Failed to open info for board version read");
@@ -57,27 +57,24 @@ void vendor_load_properties()
         fseek(fp,0x24,SEEK_SET);
         n = fread(device_buf, 8, 1, fp);
         device_buf[8] = '\0';        
-        fseek(fp,0x34,SEEK_SET);
-        n = fread(sw_buf, 8, 1, fp);
-        sw_buf[8] = '\0';
         fclose(fp);
     }
-	//Prop for ril class
-	property_set("ro.telephony.ril_class", "SkyHLRIL");
 
+    property_set("persist.sys.usb.control", "disable");
+    property_set("persist.sys.isUsbOtgEnabled", "true");
+    property_set("persist.pantech.usb.version=0", "0");
     property_set("ro.product.model", device_buf);
 
-    if (strstr(device_buf, "IM-A870S")) 
+    if (strstr(device_buf, "IM-A910S")) 
     {
-        property_set("ro.product.device", "ef52l");
+        property_set("ro.product.device", "ef63s");
     } 
-    else if (strstr(device_buf, "IM-A870K")) 
+    else if (strstr(device_buf, "IM-A910K")) 
     {
-        property_set("ro.product.device", "ef52k");
+        property_set("ro.product.device", "ef63k");
     } 
-    else if (strstr(device_buf, "IM-A870L"))
+    else if (strstr(device_buf, "IM-A910L"))
     {
-        property_set("ro.product.device", "ef52l");
-		property_set("telephony.lteOnCdmaDevice", "1"); //Only L device support CDMA-2000 1xEV-DO
+        property_set("ro.product.device", "ef63l");
     }
 }
