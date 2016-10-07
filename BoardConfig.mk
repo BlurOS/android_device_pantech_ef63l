@@ -73,21 +73,26 @@ QCOM_BT_USE_SMD_TTY := true
 TARGET_USE_COMPAT_GRALLOC_ALIGN := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 BOARD_GLOBAL_CFLAGS += -DPANTECH_CAMERA_HARDWARE
+BOARD_GLOBAL_CFLAGS += -DCAMERA_VENDOR_L_COMPAT
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
 # CM Hardware
+BOARD_USES_CYANOGEN_HARDWARE := true
 BOARD_HARDWARE_CLASS += $(PLATFORM_PATH)/cmhw
+TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 
 # Enable dexpreopt to speed boot time
 ifeq ($(HOST_OS),linux)
   ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
-    ifeq ($(WITH_DEXPREOPT_BOOT_IMG_ONLY),)
-      WITH_DEXPREOPT_BOOT_IMG_ONLY := true
-    endif
+      WITH_DEXPREOPT := true
   endif
 endif
+
+# 
 
 # Filesystem
 BOARD_FLASH_BLOCK_SIZE := 131072
@@ -126,15 +131,12 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
 
 # Init
-TARGET_INIT_VENDOR_LIB := libinit_ef63l
-TARGET_RECOVERY_DEVICE_MODULES := libinit_ef63l
-TARGET_UNIFIED_DEVICE := true
+#TARGET_INIT_VENDOR_LIB := libinit_ef63l
+#TARGET_RECOVERY_DEVICE_MODULES := libinit_ef63l
+#TARGET_UNIFIED_DEVICE := true
 
 # Keymaster
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
-
-# Legacy Blobs
-TARGET_NEEDS_TEXT_RELOCATIONS := true
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
@@ -162,9 +164,9 @@ BOARD_USES_QC_TIME_SERVICES := true
 TARGET_NO_RPC := true
 
 # SELinux
- include device/qcom/sepolicy/sepolicy.mk
+include device/qcom/sepolicy/sepolicy.mk
 
-# BOARD_SEPOLICY_DIRS += \
+BOARD_SEPOLICY_DIRS += \
     $(PLATFORM_PATH)/sepolicy
 
 # Sensor Compat

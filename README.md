@@ -1,5 +1,3 @@
-Copyright 2016, TekCafe Team
-
 Device Tree For PANTECH SKY VEGA IRON 2
 =======================================
 
