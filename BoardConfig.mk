@@ -14,9 +14,7 @@
 # limitations under the License.
 #
 
-# inherit from pantech common
--include device/pantech/common/BoardConfigCommon.mk
-
+BOARD_VENDOR := pantech
 PLATFORM_PATH := device/pantech/ef63l
 
 # Bootloader
@@ -46,8 +44,11 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000
 BOARD_DTBTOOL_ARGS := -2
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := cyanogenmod_ef63_defconfig
-TARGET_KERNEL_SOURCE := kernel/pantech/ef63
+TARGET_KERNEL_SOURCE := kernel/pantech/msm8x74
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
+
+# ReleaseTools
+TARGET_RELEASETOOLS_EXTENSIONS := $(PLATFORM_PATH)/releasetools
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
@@ -56,10 +57,13 @@ BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 TARGET_OTA_ASSERT_DEVICE := ef63l,ef63s,ef63k
 
 # Audio
+BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_HWDEP_CAL := true
 AUDIO_FEATURE_ENABLED_LOW_LATENCY_CAPTURE := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
-BOARD_USES_ALSA_AUDIO := true
+AUDIO_FEATURE_ENABLED_NEW_SAMPLE_RATE := true
+AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
+AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := false
 USE_CUSTOM_AUDIO_POLICY := 1
 
 # Bluetooth
@@ -74,24 +78,24 @@ TARGET_USE_COMPAT_GRALLOC_ALIGN := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 BOARD_GLOBAL_CFLAGS += -DPANTECH_CAMERA_HARDWARE
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
-BOARD_GLOBAL_CFLAGS += -DMETADATA_CAMERA_SOURCE
 
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
 # CM Hardware
-BOARD_USES_CYANOGEN_HARDWARE := true
 BOARD_HARDWARE_CLASS += $(PLATFORM_PATH)/cmhw
-TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
+BOARD_USES_CYANOGEN_HARDWARE := true
+BOARD_HARDWARE_CLASS += \
+    hardware/cyanogen/cmhw
 
 # Enable dexpreopt to speed boot time
 ifeq ($(HOST_OS),linux)
   ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
-      WITH_DEXPREOPT := true
+    ifeq ($(WITH_DEXPREOPT_BOOT_IMG_ONLY),)
+      WITH_DEXPREOPT_BOOT_IMG_ONLY := true
+    endif
   endif
 endif
-
-# 
 
 # Filesystem
 BOARD_FLASH_BLOCK_SIZE := 131072
@@ -160,7 +164,8 @@ TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 
 # RIL
 TARGET_RIL_VARIANT := caf
-BOARD_GLOBAL_CFLAGS+= -DUSE_RIL_VERSION_11
+BOARD_GLOBAL_CFLAGS += -DUSE_RIL_VERSION_10
+BOARD_GLOBAL_CPPFLAGS += -DUSE_RIL_VERSION_10
 
 # Simple time service client
 BOARD_USES_QC_TIME_SERVICES := true
@@ -188,26 +193,16 @@ BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_qcwcn
 TARGET_USES_WCNSS_CTRL           := true
 TARGET_USES_QCOM_WCNSS_QMI       := true
 TARGET_USES_WCNSS_MAC_ADDR_REV   := true
-TARGET_WCNSS_MAC_PREFIX          := e8bba8
+TARGET_WCNSS_MAC_PREFIX          := d095c7
 WIFI_DRIVER_FW_PATH_STA          := "sta"
 WIFI_DRIVER_FW_PATH_AP           := "ap"
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 
 
 # Recovery
-TARGET_RECOVERY_FSTAB := device/pantech/ef63l/rootdir/etc/fstab.qcom
 TARGET_USERIMAGES_USE_EXT4 := true
-TW_THEME := portrait_hdpi
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-TW_NO_USB_STORAGE := true
-TW_INCLUDE_JB_CRYPTO := false
-TW_NO_SCREEN_BLANK := true
-TW_EXCLUDE_ENCRYPTED_BACKUPS := true
-TW_INCLUDE_L_CRYPTO := true
-BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
-TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
-TARGET_RECOVERY_QCOM_RTC_FIX 	:= true
-TW_TIME_ZONE_GUISEL		:= "THAIST-7;THAIDT"
 
 -include vendor/pantech/ef63l/BoardConfigVendor.mk
+
